@@ -6,10 +6,33 @@
     <content><![CDATA[<p>一个好的程序员，一定会追求优美、优雅、高效的代码，优美优雅需要时间积累以及业务的耦合拆分来完成。而高效，却是可以通过代码分析做到，让你的代码<strong>多快好省</strong>的执行，这就是这篇文章要讲的主题：<strong>时间、空间复杂度</strong></p>
 <a id="more"></a>
 
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>注意：代码执行时间的表示，一般用 <strong>T(n) = O(f(n))</strong> 表示。其中T(n)表示代码的总执行时间，f(n) 是代码行数的和，一般会是一个公式，而O表示T(n)和f(n)成正比，由O来标记复杂度。例如：<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int sum(int n) &#123;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    int i &#x3D; 0;</span><br><span class="line">    for (;i &lt; n;i ++) &#123;</span><br><span class="line">        sum +&#x3D; i;</span><br><span class="line">    &#125; </span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上述代码片段，f(n) = 2n + 2，所以代码执行时间取决于n的大小，当n很大时，公式中的低级和常量都可以忽略不计。所以上述代码的执行时间可以表示为：T(n) = O(n)，描述为<strong>算法的时间复杂度为O(n)</strong>。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int 0 &#x3D; 0</span><br></pre></td></tr></table></figure>
-<p>我的天啊</p>
-<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2>]]></content>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><blockquote>
+<p>注意：代码执行时间的表示，一般用 <strong>T(n) = O(f(n))</strong> 表示。其中T(n)表示代码的总执行时间，f(n) 是代码行数的和，一般会是一个公式，而O表示T(n)和f(n)成正比，由O来标记复杂度。例如：<br> <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;i &lt; n;i ++) &#123;</span><br><span class="line">        sum = sum + i;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上述代码片段，f(n) = 2n + 2，所以代码执行时间取决于n的大小，当n很大时，公式中的低阶、系数和常量都可以忽略不计。所以上述代码的执行时间可以表示为：T(n) = O(n)，描述为<strong>算法的时间复杂度为O(n)</strong>。</p>
+</blockquote>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>现在来看一下，从那几个角度来分析时间复杂度：</p>
+<h4 id="只关注循环执行次数最多的一段"><a href="#只关注循环执行次数最多的一段" class="headerlink" title="只关注循环执行次数最多的一段"></a>只关注循环执行次数最多的一段</h4><p>上面说过，时间复杂度忽略低阶参数，只需要记录最大阶的数，所以我们在分析一段代码的时间复杂度，只需要关注循环次数最多的部分。上述代码的2、3行，都是常量级别的执行时间，4、5被执行的n次，所以时间复杂度就是O(n)。</p>
+<h4 id="加法法则"><a href="#加法法则" class="headerlink" title="加法法则"></a>加法法则</h4><p>当一段代码中，有多个循环体，那么总复杂度为量级最大的那段，比如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum1 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;i &lt; n;i ++) &#123;</span><br><span class="line">        sum = sum + i;</span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> sum2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> q = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;p &lt; n;p ++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (;q &lt; n;q ++) &#123;</span><br><span class="line">            sum2 = sum2 + q * p;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">return</span> sum1 + sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析上述两个代码片段可知，复杂度分别为O(n)和O(n²)，我们取其中最大的量级就是O(n²)，也就是说：<strong>总的时间复杂度等于量级最大的时间复杂度</strong>，如果用公式表示，便是T(n) = f(n) + g(n) = Max(O(f(n)) + O(g(n)));</p>
+<h3 id="几种常见的复杂度"><a href="#几种常见的复杂度" class="headerlink" title="几种常见的复杂度"></a>几种常见的复杂度</h3><ol>
+<li>O(1) </li>
+<li>O(logn)、O(nlogn)</li>
+</ol>
+<p>其中1很好理解，代码中没有任何递归、循环，哪怕有上万行代码，复杂度也是O(1)</p>
+<p>2需要注意一个点，看实际代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt;= n) &#123;</span><br><span class="line">    i = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设该代码的执行次数为X，则可得方程</p>
+<blockquote>
+<p>1 * 2 * 2² * 2³ …2<sup>x</sup> = n，那么x = log<sub>2</sub>n</p>
+</blockquote>
+<p>所以复杂度为O(log<sub>2</sub>n)，底数可以很任意底数进行转换，所以视为常数进行省略，这种复杂度都为<strong>O(logn)</strong></p>
+<p>常见的时间复杂度由从低阶到高阶有：O(1)、O(logn)、O(n)、O(nlogn)、O(n2)，可以所以要追求卓越，要尽可能让自己的算法，往低阶靠齐。</p>
+<h4 id="乘法法则"><a href="#乘法法则" class="headerlink" title="乘法法则"></a>乘法法则</h4><p>阅读能力强的人，可以在加法法则中发现，第二段代码就是一个循环嵌套，拆分成两个循环，计算复杂度便是乘法，也就是T1(n) = O(n)，T2(n) = O(n)，则 T1(n) * T2(n) = O(n²)。</p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>空间复杂度的分析相对时间复杂度要简单很多，就是分析代码申请了多少存储空间，这里不扩展开来了。</p>
+<p>欢迎留言，进行交流</p>
+]]></content>
       <tags>
         <tag>数据结构与算法</tag>
       </tags>
