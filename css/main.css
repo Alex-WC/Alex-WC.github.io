@@ -96,11 +96,15 @@ pre {
   overflow: auto;
 }
 code,
-kbd,
 pre,
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
+}
+kbd {
+  font-family: monospace, monospace;
+  font-size: 1em;
+  background: #000;
 }
 button,
 input,
@@ -1943,7 +1947,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #eef00d;
+  background: #3453ff;
 }
 .links-of-blogroll {
   font-size: 13px;

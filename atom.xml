@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>吴超的技术博客</title>
+  
+  <subtitle>一个iOS开发者</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-06-01T03:23:09.946Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>吴超</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>typealias -更清晰的swift代码</title>
+    <link href="http://yoursite.com/2020/06/01/typealias/"/>
+    <id>http://yoursite.com/2020/06/01/typealias/</id>
+    <published>2020-06-01T03:13:48.000Z</published>
+    <updated>2020-06-01T03:23:09.946Z</updated>
+    
+    <content type="html"><![CDATA[<p><kbd>dasdf</kbd> </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;kbd&gt;dasdf&lt;/kbd&gt; &lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+</feed>

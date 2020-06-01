@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>typealias -更清晰的swift代码</title>
+    <url>/2020/06/01/typealias/</url>
+    <content><![CDATA[<p><kbd>dasdf</kbd> </p>
+]]></content>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法复杂度分析</title>
     <url>/2020/05/12/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>一个好的程序员，一定会追求优美、优雅、高效的代码，优美优雅需要时间积累以及业务的耦合拆分来完成。而高效，却是可以通过代码分析做到，让你的代码<strong>多快好省</strong>的执行，这就是这篇文章要讲的主题：<strong>时间、空间复杂度</strong></p>
