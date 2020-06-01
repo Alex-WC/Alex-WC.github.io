@@ -3,7 +3,46 @@
   <entry>
     <title>typealias -更清晰的swift代码</title>
     <url>/2020/06/01/typealias/</url>
-    <content><![CDATA[<p><kbd> dasd</kbd></p>
+    <content><![CDATA[<p>为了使代码更加清晰，简洁，使用<code>typealias</code>是很好的方法之一。它会让你的代码，易读性更强。例如<code>TimeInterval</code>，一眼便可以认出是时间间隔的定义，如果用<code>Double</code>，你可能还需要看一下变量定义才能理解含义，这就是别名的优势之一。</p>
+<a id="more"></a>
+
+<h3 id="什么是typealias"><a href="#什么是typealias" class="headerlink" title="什么是typealias"></a>什么是typealias</h3><p>顾名思义，<code>typealias</code>就是给特定类型起一个别名。例如<code>Int</code>、<code>UIView</code>,等，你都可以起一个别名来定义，使得含义更加明显，例如</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">TimeInterval</span> = <span class="type">Double</span></span><br></pre></td></tr></table></figure>
+
+<p>本质是一个<code>Double</code>，重新定义后便拥有的<strong>时间间隔</strong>的含义，代码阅读起来也更加流畅。但是请注意，<code>Int32</code>和<code>Int64</code>并不是同一类型。一般来说，我们不需要特意指定Int类型的字长，使用<code>Int</code>来表示，在不同的平台上会有不同的字长。</p>
+<h4 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h4><p>上面提到，<code>typealias</code>只是起了别名，本质还是一样，所以类型别名也是可以具有泛型参数的。</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">MyArray</span>&lt;<span class="type">T</span>&gt; = <span class="type">Array</span>&lt;<span class="type">T</span>&gt;</span><br><span class="line"><span class="keyword">let</span> newArray: <span class="type">MyArray</span> = <span class="type">MyArray</span>(arrayLiteral: <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>上述案例为常规数组定义了一个新的<code>MyArray</code>，一样具备泛型特性。同样的，如果约束参数也是可以做到，比如希望T是遵循<code>StringProtocol</code>类型的：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">MyArray</span> = <span class="type">Array</span> <span class="keyword">where</span> <span class="type">T</span>: <span class="type">StringProtocol</span></span><br></pre></td></tr></table></figure>
+
+<p>这样子，就可以快速为特定类型定义数组，而不用将<code>Array</code>子类化。这也是符合swift语言特性的。</p>
+<h3 id="实践应用"><a href="#实践应用" class="headerlink" title="实践应用"></a>实践应用</h3><h4 id="更清晰的代码"><a href="#更清晰的代码" class="headerlink" title="更清晰的代码"></a>更清晰的代码</h4><p>别名可以使代码更具含义，上面<code>TimeInterval</code>的已经讲过，在<code>typealias TimeInterval = Double</code>中，<code>TimeInterval</code>含义更清晰，相比<code>let time : Double = 0.0</code>更容易理解。</p>
+<h4 id="更简单的可选闭包"><a href="#更简单的可选闭包" class="headerlink" title="更简单的可选闭包"></a>更简单的可选闭包</h4><p>在swift中，定义一个闭包会显的有点臃肿，比如定义一个参数一个返回值的闭包常规定义如下：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">action</span><span class="params">(callback:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Int</span>) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时如果闭包是可选的，则会变为：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">action</span><span class="params">(callback: <span class="params">(<span class="params">(Int)</span></span></span></span> -&gt; <span class="type">Int</span>)?) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样子参数一旦变多，可读性会非常的差，比如成功、失败、进行中的操作，代码会变成：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">action</span><span class="params">(success: <span class="params">(<span class="params">(Int)</span></span></span></span> -&gt; <span class="type">Int</span>)?,</span><br><span class="line">            failure: ((<span class="type">Error</span>) -&gt; <span class="type">Void</span>)?,</span><br><span class="line">            progress: ((<span class="type">Double</span>) -&gt; <span class="type">Void</span>)?) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很显然，这个看起来很很令人头痛，上面只是一个参数，如果参数在多一下，怕是没人想接手你的代码进行维护了，所以我们可以通过不同闭包起类型别名来解决这个问题：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">Success</span> = (<span class="type">Int</span>) -&gt; <span class="type">Int</span></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">Failure</span> = (<span class="type">Error</span>) -&gt; <span class="type">Void</span></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">Progress</span> = (<span class="type">Double</span>) -&gt; <span class="type">Void</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">action</span><span class="params">(success: Success?, </span></span></span><br><span class="line"><span class="function"><span class="params">            failure: Failure?, </span></span></span><br><span class="line"><span class="function"><span class="params">            progress: Progress?)</span></span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码，哪怕是后续参数变动，改动也是很方便的。</p>
+<h4 id="像函数一样的元组"><a href="#像函数一样的元组" class="headerlink" title="像函数一样的元组"></a>像函数一样的元组</h4><p>此时我们可以通过泛型和元组，不一定需要用结构体。例如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">Generation</span>&lt;<span class="type">T</span>: <span class="type">Numeric</span>&gt; = (initial: <span class="type">T</span>, seed: <span class="type">T</span>, <span class="built_in">count</span>: <span class="type">Int</span>, current: <span class="type">T</span>)</span><br><span class="line"><span class="comment">// 使用时只需要</span></span><br><span class="line"><span class="keyword">let</span> firstGeneration = <span class="type">Generation</span>(initial: <span class="number">10</span>, seed: <span class="number">42</span>, <span class="built_in">count</span>: <span class="number">0</span>, current: <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>尽管它看起来确实像一个结构体，但它只是一个元组的类型别名。</p>
+<h4 id="组合协议"><a href="#组合协议" class="headerlink" title="组合协议"></a>组合协议</h4><p>有一种场景，需要不同的对象实现多个协议，这时候若使用组合协议来重新定义，会提高灵活性：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">CanRead</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">CanWrite</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">CanCreateUser</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">Administrator</span> = <span class="type">CanRead</span> &amp; <span class="type">CanWrite</span> &amp; <span class="type">CanCreateUser</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">User</span> = <span class="type">CanRead</span> &amp; <span class="type">CanWrite</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">Consumer</span> = <span class="type">CanRead</span></span><br></pre></td></tr></table></figure>
+
+<p>如上述，定义了读写和操作用户的行为的协议，不同的对象拥有不同的行为。这样子就等于定义了权限层，管理员可以做任何事，用户可以读写，而消费者只能读。</p>
+<h4 id="不完美处"><a href="#不完美处" class="headerlink" title="不完美处"></a>不完美处</h4><p><code>typealias</code>是一个很棒的功能，我本人应用很广泛，但是会出现一个问题，很多定义是额外工作，使得我同事在操作我的代码时，要有额外的查询动作，比如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">first</span><span class="params">(action: <span class="params">(Int, Error?)</span></span></span> -&gt; <span class="type">Void</span>) &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">second</span><span class="params">(action: Success)</span></span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一个是直接就能看出来参数和类型的，而第二个是需要跳到<code>Success</code>处来查看定义的。所以具体的使用场景，还需要取舍有度才行。</p>
 ]]></content>
       <tags>
         <tag>iOS</tag>
