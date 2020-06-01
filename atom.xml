@@ -5,9 +5,9 @@
   <subtitle>一个iOS开发者</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://wuchao.link/"/>
   <updated>2020-06-01T08:10:50.813Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://wuchao.link/</id>
   
   <author>
     <name>吴超</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>typealias -更清晰的swift代码</title>
-    <link href="http://yoursite.com/2020/06/01/typealias/"/>
-    <id>http://yoursite.com/2020/06/01/typealias/</id>
+    <link href="https://wuchao.link/2020/06/01/typealias/"/>
+    <id>https://wuchao.link/2020/06/01/typealias/</id>
     <published>2020-06-01T03:13:48.000Z</published>
     <updated>2020-06-01T08:10:50.813Z</updated>
     
@@ -33,7 +33,7 @@
     
     
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+      <category term="iOS" scheme="https://wuchao.link/tags/iOS/"/>
     
   </entry>
   
