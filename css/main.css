@@ -96,15 +96,11 @@ pre {
   overflow: auto;
 }
 code,
+kbd,
 pre,
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
-}
-kbd {
-  font-family: monospace, monospace;
-  font-size: 1em;
-  background: #000;
 }
 button,
 input,
@@ -327,12 +323,11 @@ dd {
 kbd {
   border: 1px solid #ccc;
   border-radius: 0.2em;
-  box-shadow: 0.1em 0.1em 0.2em rgba(0,0,0,0.1);
-  background-color: #f9f9f9;
+  background-color: #fffefe;
   font-family: inherit;
-  background-image: -webkit-linear-gradient(top, #eee, #fff, #eee);
   padding: 0.1em 0.3em;
   white-space: nowrap;
+  color: #e8063f;
 }
 .text-left {
   text-align: left;
@@ -1947,7 +1942,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3453ff;
+  background: #55da1f;
 }
 .links-of-blogroll {
   font-size: 13px;
